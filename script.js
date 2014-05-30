@@ -1,31 +1,38 @@
-var TextContent = function(container, button) {
+var ButtonPositioner = function(container, button) {
 	if (!button && !container) {
 		return;
 	}
-	var orginalPosition = button.style.position;
+	var originalContainerPosition = button.style.position,
+		html = document.getElementsByTagName('html')[0],
+		originalContainerHeight = container.style.height;
+
+	var getHtmlHeight = function() {
+		var height = html.offsetHeight;
+		if (button.style.position == 'fixed') {
+			height - button.offsetHeight;
+		}
+		return height;
+	}
+
+	var setFixedPosition = function () {
+		button.style.position = 'fixed';
+		button.style.bottom = '0';
+		container.style.height = parseInt(container.offsetHeight)
+			+ button.offsetHeight + 'px';
+	};
+
+	var setOriginalPosition = function () {
+		button.style.position = originalContainerPosition;
+		button.style.height = originalContainerHeight;
+	};
+
 	var rerender = function() {
-		var orginalContainerHeight = window.getComputedStyle(container).height.replace('px', '');
-		var buttonHeight = window.getComputedStyle(button).height.replace('px', '');
-		var htmlHeight = document.getElementsByTagName('html')[0].offsetHeight;
-		console.log('rerender, htmlHeight: ' + htmlHeight + ', window.innerHeight: ' + window.innerHeight);
-		if (htmlHeight >= window.innerHeight) {
-			//make buttonElement position fixed
-			if (button.style.position != 'fixed') {
-				button.style.position = 'fixed';
-				button.style.bottom = '0';
-				console.log('orginal height: ' + orginalContainerHeight);
-				container.style.height = parseInt(orginalContainerHeight) + parseInt(buttonHeight) + 'px';
-				console.log('container height: ' + container.style.height);
-			}
+		if (getHtmlHeight() >= window.innerHeight) {
+			setFixedPosition();
 		} else {
-			button.style.position = orginalPosition;
-			container.style.height = orginalContainerHeight + 'px';
+			setOriginalPosition();
 		}
 	}
-	window.addEventListener('resize', rerender);
 	rerender();
 };
 
-window.addEventListener('load', function() {
-	new TextContent(document.getElementById('content'), document.getElementById('button'));
-});

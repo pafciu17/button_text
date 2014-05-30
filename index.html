@@ -3,6 +3,11 @@
 <head>
 	<title></title>
 	<script src="script.js" ></script>
+	<script>
+		window.addEventListener('load', function() {
+			new ButtonPositioner(document.getElementById('content'), document.getElementById('button'));
+		});
+	</script>
 </head>
 <body>
 	<div id="content">
@@ -10,7 +15,7 @@
 
 		Nam interdum mauris pretium nisi scelerisque imperdiet. Vestibulum sagittis quis libero ac pellentesque. Etiam malesuada semper nisi quis consectetur. Aenean id justo vel mauris elementum posuere. Ut euismod risus et eleifend rhoncus. Mauris rhoncus, diam sed tempor porta, libero tellus ornare turpis, sit amet vestibulum urna risus quis tortor. Integer non erat fringilla, dictum ligula in, pretium dolor. Sed sodales posuere tincidunt. Integer mi mi, eleifend in commodo quis, feugiat at odio. Nullam sapien sem, dignissim vulputate dui non, fringilla tempus lorem. Cras orci elit, porta at orci ut, tempus imperdiet erat. Donec tempor sapien ut eleifend bibendum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque pretium mi nec turpis laoreet placerat.
 		<div id="button"
-			 style="border: solid 2px black; padding: 10px 0px; text-align: center; width: 100%; background-color: red">
+			 style="padding: 10px 0px; text-align: center; width: 100%; background-color: red">
 			Button
 		</div>
 	</div>
